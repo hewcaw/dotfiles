@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+# ==============================================================================
+# autow.sh - Auto stow
+# 
+# Basic usage:
+# ./autow.sh -t i3,xfce4,..
+#
+# -l list
+#   In case if use naming directory with underscore and want to sort it first
+# -c ...
+#   ...
+# -g general
+#   General (z_global)
+# -t target(s)
+#   Target directory, comma separated for multiple targets.
+# -dt delete target(s)
+#   Delete target directory, comma separated for multiple targets.
+# -rt restow target(s)
+#   Restow target directory, comma separated for multiple targets.
+# ==============================================================================
+
+# Include other scripts: https://stackoverflow.com/a/12694189
+# DIR="${BASH_SOURCE%/*}"
+# if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
+# . "$DIR/helpers.sh"
+
+# set -e
+# Import files.
+# DIR="${BASH_SOURCE%/*}"
+# if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
+# . "$DIR/../helpers.sh"
+# . "$DIR/configs.sh"
+# cd "$(dirname "${BASH_SOURCE[0]}")"
+
+# Stow configurations
+# [[ -d ~/.config ]] && : || mkdir ~/.config
+# [[ ! -x "$(command -v stow)" ]] && helper_install_print_pkg "stow" || :
+# 
+# # getopt configurations
+# mode=""
+# target=""
+# target_dir=""
+# OPTIND=1
+# while getopts lcgdrt: opt; do case $opt in
+#   l) LC_COLLATE=C ls --color=always *;;
+#   c) target_dir=$OPTIND;;
+#   g) target=$(ls general | xargs printf "%s " | sed 's/ /,/g');;
+#   d) mode="delete";;
+#   r) mode="re";;
+#   t) target=$OPTARG;;
+# esac done
+# shift "$((OPTIND-1))"
+# 
+# # autow_stow - Quick stow command
+# # @dir (str): 
+# # @mode (str): it should be enum type but (re, delete) is only 2 options
+# # @sto (str): target ?
+# autow_stow () {
+#   local dir=$1
+#   local mode=$2
+#   local sto=$3
+#   [[ -z "$mode" ]] && stow -d $dir -vt ~ $sto || :
+#   [[ "$mode" == "re" ]] && stow -d $dir -Rvt ~ $sto || : 
+#   [[ "$mode" == "delete" ]] && stow -d $dir -Dvt ~ $sto || :
+# }
+# 
+# # Executing stows
+# if [[ ! -z $target ]]; then
+#   target=${target//,/ }       # tmux,nvim,vim -> tmux nvim vim
+# 
+#   for tget in $target; do
+#     #[[ "$tget" == "vim-abandoned" ]] && continue 
+# 
+#     parent=$(find . -type d -name $tget | find . -type d -name $tget | cut -d '/' -f-2 | sed 's/$/\//' | head -1 )
+#           # Old - CANNOT put this on top 'cause bash will break:
+#           # | head -n 1 | sed "s/$tget//g")       # The first one
+#           # | grep "^./[[:alpha:]]\+/[[:alpha:]]\+$"
+#           # | grep -o '^./[[:alpha:]]\+/' | head -1)
+#           autow_stow "$parent" "$mode" "$tget"
+#         done
+#         exit 0
+# fi
+# 
+# 
+# 
+# 
+# 
+# #ignore=$(cat .ignorelist)
+# #for i in $ignore; do
+# #		#list=$(echo $list | xargs printf "%s\n" | grep -v "$i")
+# #			list=${list//$i/}
+# #		done;
+# 
+# #!/usr/bin/env bash
+# 
+# # Stow:
+# [[ -d ~/.config ]] && : || mkdir ~/.config
+# [[ -d ~/.local ]] && : || mkdir ~/.local
+# stow -vRt ~ ~/Documents/playground/dotfiles/base
+# stow -vRt ~ ./../bin
+# 
+# # if [[ "$DISTRO" == "Ubuntu" ]]; then
+# #   stow -vRt ~ ../../../_regolith
+# # elif [[ "$DISTRO" == "Arch Linux" ]]; then
+# #   stow -vRt ~ ../../../_arch
+# # fi
+# #!/usr/bin/env bash
+# # sudo apt install fonts-noto-color-emoji
+# sudo apt install imwheel, git, curl

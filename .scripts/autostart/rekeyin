@@ -1,0 +1,29 @@
+clear Lock
+
+keycode 108  = Mode_switch
+
+keysym h     = h H Left
+keysym j     = j J Down
+keysym k     = k K Up
+keysym l     = l L Right
+keysym m     = m M Home
+keysym comma = comma less End
+keysym u     = u U Prior
+keysym i     = i I Next
+keysym o     = o O Insert
+
+keysym q     = q Q F1
+keysym w     = w W F2
+keysym e     = e E F3
+keysym r     = r R F4
+keysym a     = a A F5
+keysym s     = s S F6
+keysym d     = d D F7
+keysym f     = f F F8
+keysym z     = z Z F9
+keysym x     = x X F10
+keysym c     = c C F11
+keysym v     = v V F12
+
+keysym p         = p P Delete
+keysym semicolon = semicolon colon Escape

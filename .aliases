@@ -1,0 +1,4 @@
+alias cdb="cd ~/Documents/blankness_cafe/"
+alias cdn="cd ~/.config/nvim/"
+alias cdnb="cd ~/.config/nvim/lua/dev/buffet.nvim/"
+alias cdd="cd ~/Documents/dotfiles/"

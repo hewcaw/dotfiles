@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+# set -e
+# cd "$(dirname "${BASH_SOURCE[0]}")"
+# source ../src/arch/config.sh
+# source ../src/utils.sh
+source ./src/packages.sh
+
+# Check for update.
+sudo pacman -Syu --noconfirm
+
+echo_indicator "Yay (AUR Helper)" "Installing"
+sudo pacman -S --noconfirm --needed base-devel git >/dev/null
+git clone --quiet https://aur.archlinux.org/yay.git ~/yay
+cd ~/yay
+makepkg -si >/dev/null
+rm -rf ~/yay
+
+echo_indicator "AwesomeWM" "Installing"
+sudo pacman -S --noconfirm awesome xorg-server lightdm lightdm-gtk-greeter
+# sudo pacman -S --noconfirm awesome xorg-server xorg-xinit >/dev/null
+# echo "exec awesome" > ~/.xinitrc
+# echo "startx" > ~/.zlogin
+
+# echo_indicator "fonts" "Installing"
+# yay -S --noconfirm nerd-fonts-fira-code >/dev/null
+
+# Zsh
+
+# Neovim
+yay -S neovim-nightly-bin
+sudo pacman -S python-pynvim python-yaml
+
+sudo pacman -S --noconfirm xorg-xrandr xorg-xset
+
+# Autostart systemd service
+ 
+
+
+# TODO: All below scripts only run when parameter "arch_test" is passed?
+
+# # Auto mount shared folder.
+# echo_indicator "Shared folder ..." "Setting up"
+# echo -e "#!/bin/sh -e
+# #
+# # rc.local
+# #
+# # This script is executed at the end of each multiuser runlevel.
+# # Make sure that the script will "exit 0" on success or any other
+# # value on error.
+# #
+# # In order to enable or disable this script just change the execution
+# # bits.
+# #
+# # By default this script does nothing.
+# 
+# mount -t 9p -o trans=virtio,version=9p2000.L /kvmshare ~/kvmshare
+# 
+# exit 0" | sudo tee -a /etc/rc.local >/dev/null
+
+# Share clipboard
+# echo_indicator "Shared clipboard ..." "Setting up"
+# install_pkg "spice-vdagent" >/dev/null
+# sudo sed -in '/\[Install\]/a Wantedby=multi-user.target' /usr/lib/systemd/system/spice-vdagentd.service
+# sudo systemctl enable --now spice-vdagentd
+# 
+# echo_indicator "Successfully setup $USER, reboot bro!"

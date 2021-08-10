@@ -1,0 +1,19 @@
+# [includeIf "gitdir:/home/ecm/Documents/Info/ladu/"]
+#     [user]
+#         name = baiioon
+#         email = hcyclops2t@gmail.com
+#
+# [includeIf "gitdir:/home/ecm/Documents/Personal/vim-buffet/"]
+#     [user]
+#         name = baiioon
+#         email = hcyclops2t@gmail.com
+#
+# [includeIf "gitdir:/home/ecm/Documents/Working/lf-app-farm-mg-mobile/"]
+#     [user]
+#         name = Hieu
+#         email = fb.singed@gmail.com
+# [core]
+# 	autocrlf = input
+# [user]
+# 	email = hcyclops2t@gmail.com
+# 	name = baiioon

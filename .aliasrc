@@ -1,0 +1,67 @@
+#se() { du -a ~ ~/scripts/* ~/git/* | grep -v "\.git" | grep -v "\.cache" | grep -v "\.vim" | awk '{print $2}' | fzf | xargs -r $EDITOR ;}
+
+sz() { source ~/.zshrc ;}
+sb() { . ~/.bashrc ;}
+
+j() {
+    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
+    local file
+    file="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+}
+
+
+# fzf 
+fzf-clipboard() { echo -n "$(greenclip print | fzf -i --height 40% )" | xclip -selection clipboard ;}
+
+# refresh greenclip and restart xbindkeys
+gx() { 
+    killall greenclip; killall xbindkeys; xbindkeys; greenclip daemon & 
+}
+
+# ==========================================
+# - Fast shortcuts for Editing
+# ==========================================
+fne() { . ~/.scripts/cd_nvim.sh ;}
+ve() { du -a ~/.vim/vimrc.d/ ~/.vimrc | awk '{print $2}' | fzf | xargs -r $EDITOR ;}
+vlle() { du -a ~/dotfiles/z_global/vim/.vim/bundle/lightline.vim/autoload/lightline/colorscheme/ | fzf | xargs -r $EDITOR ;}
+ae() { $EDITOR ~/.aliasrc ;}
+ze() { $EDITOR ~/.zshrc ;}
+be() { $EDITOR ~/.xbindkeysrc ;}
+ce() { $EDITOR ~/.config/compton/compton.conf ;}
+# ------ AwesomeWM -------
+rce() { $EDITOR ~/.config/awesome/rc.lua ;}
+the() { $EDITOR ~/.config/awesome/themes/theme.lua ;}
+cda() { cd ~/dotfiles/de/awm/ ;}
+#     -- .Xresources --
+xe() { $EDITOR ~/.Xresources ;}
+xx() { xrdb ~/.Xresources ;}
+
+# ==========================================
+# - Fast shortcuts for Moving
+# ==========================================
+cdz() { 
+    local file
+    file="$(fdfind --hidden -t d . . | fzf)"
+    if [[ -d $file ]]; then
+        cd -- $file
+    fi
+}
+vez() {
+    fdfind --hidden . . | fzf | xargs $EDITOR
+}
+
+# == Fast shortcuts ==
+umnt () { sudo umount /dev/$1 ;}
+mnt () { sudo mount -t ntfs-3g /dev/$1 /media/external/ ;}
+pob_rel () { killall polybar; $(polybar example &) ;}
+keyn_rel () { killall keynav; keynav daemonize ;}
+
+# === Git ===
+
+# === ALIAS ===
+alias ls='ls --color -xh --group-directories-first'
+
+#os=$(cat /etc/os-release | grep ubuntu)         # fd
+#[[ ! -z $os ]] && alias fd=fdfind || :
+
+"$@"

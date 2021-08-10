@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -e
+cd "$(dirname "${BASH_SOURCE[0]}")"
+source ./src/packages.sh
+
+while getopts "p:" o; do case "${o}" in
+  p) package=${OPTARG} ;;
+  *) printf "Invalid option: -%s\\n" "$OPTARG" && exit ;;
+esac done
+
+case $2 in
+  kvm)
+    install_kvm
+    ;;
+  fonts)
+    install_fonts
+    ;;
+  zsh)
+    install_zsh
+    ;;
+  *)
+    printf "Invalid package: %s\\n" "$2"
+    exit
+    ;;
+esac
